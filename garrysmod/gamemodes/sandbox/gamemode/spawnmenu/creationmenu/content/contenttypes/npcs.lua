@@ -6,9 +6,18 @@ hook.Add( "PopulateNPCs", "AddNPCContent", function( pnlContent, tree, browseNod
 
 	-- Categorize them
 	local Categories = {}
+
+	local TranslateNames = {
+		["Animals"] = "#spawnmenu.category.animals",
+		["Combine"] = "#spawnmenu.category.combine",
+		["Humans + Resistance"] = "#spawnmenu.category.humans_resistance",
+		["Zombies + Enemy Aliens"] = "#spawnmenu.category.zombies_aliens",
+		["Other"] = "#spawnmenu.category.other"
+	}
+
 	for k, v in pairs( NPCList ) do
 
-		local Category = v.Category or "Other"
+		local Category = language.GetPhrase( TranslateNames[v.Category] or v.Category or "#spawnmenu.category.other" )
 		if ( !isstring( Category ) ) then Category = tostring( Category ) end
 
 		local Tab = Categories[ Category ] or {}
@@ -143,6 +152,7 @@ spawnmenu.AddCreationTab( "#spawnmenu.category.npcs", function()
 
 	local sidebar = ctrl.ContentNavBar
 	sidebar.Options = vgui.Create( "SpawnmenuNPCSidebarToolbox", sidebar )
+	sidebar.Options:Dock( BOTTOM )
 
 	return ctrl
 
