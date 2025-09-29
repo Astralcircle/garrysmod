@@ -772,7 +772,7 @@ local function CanPlayerSpawnSENT( ply, EntityName )
 	if ( !isfunction( SpawnFunction ) ) then return false end
 
 	-- You're not allowed to spawn this unless you're an admin!
-	if ( !scripted_ents.GetMember( EntityName, "Spawnable" ) && !isAdmin ) then return false end
+	if ( !scripted_ents.GetMember( EntityName, "Spawnable" ) ) then return false end
 	if ( scripted_ents.GetMember( EntityName, "AdminOnly" ) && !isAdmin ) then return false end
 
 	return true
@@ -955,7 +955,7 @@ function Spawn_Weapon( ply, wepname, tr )
 
 	-- You're not allowed to spawn this!
 	local isAdmin = ply:IsAdmin() or game.SinglePlayer()
-	if ( ( !swep.Spawnable && !isAdmin ) or ( swep.AdminOnly && !isAdmin ) ) then
+	if ( ( !swep.Spawnable ) or ( swep.AdminOnly && !isAdmin ) ) then
 		return
 	end
 
@@ -1142,3 +1142,4 @@ local function VehicleMemDupe( ply, ent, Data )
 
 end
 duplicator.RegisterEntityModifier( "VehicleMemDupe", VehicleMemDupe )
+
