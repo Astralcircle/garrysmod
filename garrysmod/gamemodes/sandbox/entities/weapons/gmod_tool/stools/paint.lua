@@ -162,6 +162,12 @@ function TOOL.BuildCPanel( CPanel )
 		local line = listbox:AddLine( decal )
 		line.data = { paint_decal = decal, gmod_tool = "paint" }
 
+		function line:DoRightClick()
+			local menu = DermaMenu()
+			menu:AddOption( "#spawnmenu.menu.copy", function() SetClipboardText( self.data.paint_decal ) end ):SetIcon( "icon16/page_copy.png" )
+			menu:Open()
+		end
+
 		if ( GetConVarString( "paint_decal" ) == tostring( decal ) ) then line:SetSelected( true ) end
 	end
 	CPanel:AddItem( listbox )
